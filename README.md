@@ -1,4 +1,3 @@
-@[TOC]
 ## 一、概述
  > ClickHouse是一种**高性能、列式存储的分布式数据库管理系统**。它专注于快速数据分析和查询，并且在大规模数据集上表现出色。
 
@@ -16,7 +15,8 @@
 
 总的来说，ClickHouse的列数据存储方式以及相关的压缩和编码技术使其在大规模数据分析场景下表现出色。它能够高效地处理海量数据，并提供快速的查询性能。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ecf196172c3b4f29a101049ce90ce013.png)
+![输入图片说明](images/1.png)
+
 这里主要侧重使用docker快速部署环境，想了解更多，可以参考我以下几篇文章：
 - [列式数据库管理系统——ClickHouse（version：22.7.1 环境部署）](https://mp.weixin.qq.com/s?__biz=MzI3MDM5NjgwNg==&mid=2247485271&idx=1&sn=7e6223c567e9e5417f8086d821668b0e&chksm=ead0fbbedda772a816de9b42d609df7e16ceaf3abf46566cf19a5c154e5fc52bd6a3c8474784#rd)
 - [列式数据库管理系统——ClickHouse实战演练](https://mp.weixin.qq.com/s?__biz=MzI3MDM5NjgwNg==&mid=2247485196&idx=1&sn=a776199e8cf04bfff8e42b6b4af3facf&chksm=ead0fbe5dda772f31a701257f85990ca4030d75097e89adf8e338036c81e1d835ac2425e4f4c#rd)
@@ -89,7 +89,7 @@ docker network create hadoop-network
 docker network ls
 ```
 ## 六、安装  Zookeeper
-这里选择docker快速部署的方式：[【中间件】通过 docker-compose 快速部署 Zookeeper 保姆级教程](https://blog.csdn.net/qq_35745940/article/details/130774794)
+这里选择docker快速部署的方式：[【中间件】通过 docker-compose 快速部署 Zookeeper 保姆级教程](https://mp.weixin.qq.com/s?__biz=MzI3MDM5NjgwNg==&mid=2247487997&idx=1&sn=ef0dc95033f374dc8cc76aeb149e459d&chksm=ead0ed14dda76402a396a826913159826efa9e727cf8033986eec006f9b821afec07e065ca6c#rd)
 
 ```bash
 git clone https://gitee.com/hadoop-bigdata/docker-compose-zookeeper.git
@@ -103,7 +103,7 @@ docker-compose -f docker-compose.yaml up -d
 docker-compose -f docker-compose.yaml ps
 ```
 ## 七、ClickHouse  编排部署
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b5f336ce7b564655a12af8af11d4ea19.png)
+![输入图片说明](images/2.png)
 ### 1）下载 ClickHouse 安装包
 这里选择使用yum安装方式，也可以选择离线安装包部署，具体教程可参考官方部署文档：[https://clickhouse.com/docs/zh/getting-started/install](https://clickhouse.com/docs/zh/getting-started/install)
 ### 2）配置
@@ -418,7 +418,7 @@ clickhouse-client -u default --password 123456 --port 9000 -h localhost --multiq
 
 select * from system.clusters;
 ```
-![在这里插入图片描述](https://img-blog.csdnimg.cn/66b4e3222f5d4347b0e6f19eea958884.png)
+![输入图片说明](images/3.png)
 ### 8）web 访问
 `http://ip:port/play`
 获取对外port
@@ -426,7 +426,7 @@ select * from system.clusters;
 ```bash
 docker-compose -f docker-compose.yaml ps
 ```
-![在这里插入图片描述](https://img-blog.csdnimg.cn/be9e9edf7d484a4f8f0da1eadb71f83a.png)
+![输入图片说明](images/4.png)
 参数说明：
 
 - `cluster`： 集群的命名
