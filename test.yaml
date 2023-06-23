@@ -1,0 +1,25 @@
+version: '3'
+services:
+  ck-node-1:
+    image: registry.cn-hangzhou.aliyuncs.com/bigdata_cloudnative/clickhouse:23.5.3.24
+    container_name: ck-node-1
+    hostname: ck-node-1
+    restart: always
+    privileged: true
+    env_file:
+      - .env
+    volumes:
+      - ./config/config.xml:/etc/clickhouse-server/config.xml
+      - ./config/users.xml:/etc/clickhouse-server/users.xml
+    expose:
+      - "${CilckHouse_PORT}"
+    ports:
+      - "${ClickHouse_HTTP_PORT}"
+    command: ["sh","-c","sleep 3600s && /opt/apache/bootstrap.sh"]
+    networks:
+      - hadoop-network
+
+# 连接外部网络
+networks:
+  hadoop-network:
+    external: true

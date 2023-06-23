@@ -1,0 +1,78 @@
+<yandex>
+    <!--ck集群节点-->
+    <clickhouse_remote_servers>
+        <!-- 集群名称 -->
+        <ck_cluster_2023>
+            <!--shard 1(分片1)-->
+            <shard>
+                <weight>1</weight>
+                <!-- internal_replication这个参数是控制写入数据到分布式表时，分布式表会控制这个写入是否的写入到所有副本中，这里设置false，就是只会写入到第一个replica，其它的通过zookeeper同步 -->
+                <internal_replication>false</internal_replication>
+                <replica>
+                    <host>ck-node-1</host>
+                    <port>9000</port>
+                    <user>default</user>
+                    <password>123456</password>
+                </replica>
+                <!--replicat 1(副本 1)-->
+                <replica>
+                    <host>ck-node-2</host>
+                    <port>9000</port>
+                    <user>default</user>
+                    <password>123456</password>
+                </replica>
+            </shard>
+            <!--shard 2(分片2)-->
+            <shard>
+                <weight>1</weight>
+                <internal_replication>false</internal_replication>
+                <replica>
+                    <host>ck-node-3</host>
+                    <port>9000</port>
+                    <user>default</user>
+                    <password>123456</password>
+                </replica>
+                <!--replicat 2(副本 2)-->
+                <replica>
+                    <host>ck-node-4</host>
+                    <port>9000</port>
+                    <user>default</user>
+                    <password>123456</password>
+                </replica>
+            </shard>
+        </ck_cluster_2023>
+    </clickhouse_remote_servers>
+    <!--zookeeper相关配置-->
+    <zookeeper>
+        <node index="1">
+            <host>zookeeper-node1</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>zookeeper-node2</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>zookeeper-node3</host>
+            <port>2181</port>
+        </node>
+    </zookeeper>
+    <macros>
+        <!-- 本节点副本名称，创建复制表时有用，每个节点不同，整个集群唯一，建议使用主机名+副本+分片），在当前节点上-->
+        <shard>${macros_shard}</shard>
+        <replica>${macros_replica}</replica>
+    </macros>
+    <!-- 监听网络 -->
+    <networks>
+        <ip>::/0</ip>
+    </networks>
+    <!--压缩相关配置-->
+    <clickhouse_compression>
+        <case>
+            <min_part_size>1073741824</min_part_size>
+            <min_part_size_ratio>0.01</min_part_size_ratio>
+            <method>lz4</method>
+            <!--压缩算法lz4压缩比zstd快, 更占磁盘-->
+        </case>
+    </clickhouse_compression>
+</yandex>
